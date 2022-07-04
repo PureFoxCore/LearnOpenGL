@@ -2,6 +2,12 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
+		glfwSetWindowShouldClose(window, true);
+}
+
 int main()
 {
 	glfwSetErrorCallback([](int errorCode, const char *description) { fprintf(stderr, "GLFW Error %i: %s\n", errorCode, description); });
@@ -37,6 +43,7 @@ int main()
 	printf("GL vendor: %s\n", glGetString(GL_VENDOR));
 
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow *window, int width, int height) { glViewport(0, 0, width, height); });
+	glfwSetKeyCallback(window, keyCallback);
 
 	while (!glfwWindowShouldClose(window))
 	{
