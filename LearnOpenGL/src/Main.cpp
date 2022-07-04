@@ -37,8 +37,17 @@ void main()
 
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
-	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
-		glfwSetWindowShouldClose(window, true);
+	if (action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_ESCAPE)
+			glfwSetWindowShouldClose(window, true);
+		
+		if (key == GLFW_KEY_L)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		if (key == GLFW_KEY_F)
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 }
 
 int main()
