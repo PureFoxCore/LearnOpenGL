@@ -2,15 +2,18 @@
 #include <GLFW/glfw3.h>
 #include <cstdio>
 
-float triangleVertices[] = 
+float firstTriangleVertices[] = 
 {
 	-0.8f, -0.3f, 0.0f,	// first bottom left
 	-0.2f, -0.3f, 0.0f,	// first bottom right
 	-0.5f,  0.3f, 0.0f,	// first top center
-	
-	 0.2, -0.3f, 0.0f,	// second bottom left
- 	 0.8, -0.3f, 0.0f,	// second bottom right
-	 0.5,  0.3f, 0.0f,	// second top center
+};
+
+float secondTriangleVertices[] = 
+{
+	0.2, -0.3f, 0.0f,	// second bottom left
+ 	0.8, -0.3f, 0.0f,	// second bottom right
+	0.5,  0.3f, 0.0f,	// second top center
 };
 
 const char *vertexShaderSource = R"glsl(
@@ -129,14 +132,24 @@ int main()
 
 	glUseProgram(shaderProgram);
 
-	unsigned int VBO, VAO;
-	glGenBuffers(1, &VBO);
-	glGenVertexArrays(1, &VAO);
+	unsigned int VBO1, VAO1;
+	unsigned int VBO2, VAO2;
+	glGenBuffers(1, &VBO1);
+	glGenVertexArrays(1, &VAO1);
 
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
+	glGenBuffers(1, &VBO2);
+	glGenVertexArrays(1, &VAO2);
+
+	glBindVertexArray(VAO1);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangleVertices), firstTriangleVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(float), (void *)nullptr);
+	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(VAO2);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(secondTriangleVertices), secondTriangleVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, false, 3 * sizeof(float), (void *)nullptr);
 	glEnableVertexAttribArray(0);
 
 	while (!glfwWindowShouldClose(window))
@@ -147,8 +160,12 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		glBindVertexArray(VAO1);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		glBindVertexArray(VAO2);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
 		glfwSwapBuffers(window);
 	}
