@@ -3,15 +3,15 @@
 #include <cstdio>
 
 float firstTriangleVertices[] = {
-	-0.8f, -0.3f, 0.0f,	 	// first bottom left
-	-0.2f, -0.3f, 0.0f,	 	// first bottom right
-	-0.5f,  0.3f, 0.0f,	 	// first top center
+	-0.9f, -0.4f, 0.0f,	 	// first bottom left
+	-0.1f, -0.4f, 0.0f,	 	// first bottom right
+	-0.5f,  0.4f, 0.0f,	 	// first top center
 };
 
 float secondTriangleVertices[] = {
-	0.2, -0.3f, 0.0f,  		// second bottom left
-	0.8, -0.3f, 0.0f,  		// second bottom right
-	0.5,  0.3f,	0.0f, 	 	// second top center
+	0.1, -0.4f, 0.0f,  		// second bottom left
+	0.9, -0.4f, 0.0f,  		// second bottom right
+	0.5,  0.4f,	0.0f, 	 	// second top center
 };
 
 const char *vertexShaderSource = R"glsl(
